@@ -1,0 +1,191 @@
+@echo off
+setlocal EnableDelayedExpansion
+title DRAGONSCALE SYSTEM SCANNER ^| FORGED BY LUCIDJAY
+mode con: cols=100 lines=75
+
+:: --- 1. ADMIN CHECK ---
+fsutil dirty query %systemdrive% >nul
+if %errorLevel% neq 0 (
+    color 0C
+    echo.
+    echo  [CRITICAL ERROR]
+    echo  The Dragon requires Administrator privileges.
+    echo  Please Right-Click and "Run as Administrator".
+    echo.
+    pause
+    exit
+)
+
+:: --- 2. BULLETPROOF DESKTOP FINDER ---
+:: This command asks Windows where the real Desktop is to prevent file loss
+for /f "delims=" %%a in ('powershell -command "[Environment]::GetFolderPath('Desktop')"') do set "DesktopPath=%%a"
+set "OutputFile=%DesktopPath%\DragonScale_Data_Packet.txt"
+
+:: --- 3. LOADING ANIMATION ---
+color 03
+cls
+echo.
+echo  [SYSTEM] INITIALIZING BINARY LINK...
+echo.
+for /L %%i in (1,1,40) do (
+    <nul set /p =10
+    timeout /t 0 >nul
+)
+cls
+
+:: --- 4. THE BINARY DRAGON ---
+color 0B
+echo.
+echo.
+echo                             0                               
+echo                              0                              
+echo                              11       0                     
+echo                               00       10                   
+echo                                11       11                  
+echo               011100111110111000101      0                  
+echo                      001001001110101 100  0                 
+echo                   1000 01101101100011 10111                 
+echo               1101000001   00100110000 10101                
+echo           0110011100100101     11111000   100  11           
+echo        1001011100101111   11      1000100    1  100         
+echo      10000   00100111    00001     0111101       110        
+echo    100     001011110    0101   0    0101111       01        
+echo  01      00001011000  00000101      010111101      11       
+echo        01010001011  11     1000     01010010010     0       
+echo       10110 11010     001            101110 01111    11     
+echo      110  101000     100100             0011  011    1      
+echo     00   1101010     0001100000           00101001010       
+echo    0    1001100      00101110              011111    1      
+echo   0    00101110      00111100010011          100010   1     
+echo       000111110       1000011001010011    0   011010   0    
+echo      010 0011101       000010010011110100 01  01111110  11  
+echo      11  0110100        1101110110       01010 1011100  00  
+echo     0   001010000        111001001        01111111110001    
+echo         1000001110         0111100         01  1110110      
+echo         00011101011          010001         0    001        
+echo         111 11000110           11100             00         
+echo          00  111011111            1111                      
+echo           0   0110101110            0110                    
+echo            0   111100111110            101                  
+echo             0    0111010101001            00                
+echo                     0011010111000            00             
+echo                         1110110011111           0           
+echo                               001000011100                  
+echo                                      1000011110             
+echo                                                 0100001     
+echo.
+echo.
+echo     [ D R A G O N S C A L E   S Y S T E M   S C A N N E R ]
+echo     [ POWERED BY LUCIDJAY ]
+echo.
+
+echo  [SYSTEM MESSAGE]: Welcome, User.
+echo  I will now interview you to understand your needs.
+echo  I will combine your answers with a deep system scan to create a data packet.
+echo.
+echo  [NOTE]: You can type freely. The AI Neural Net will auto-correct typos.
+echo.
+
+:: --- 5. THE INTERVIEW ---
+
+echo  [QUESTION 1]: What is your MAIN GOAL?
+echo  (e.g. "I want max fps", "fix obs lag")
+echo  Type below:
+set /p "UserGoal=> "
+echo.
+
+echo  [QUESTION 2]: What MUST WE KEEP?
+echo  (e.g. "Dont kill printer", "need bluetooth")
+echo  Type below:
+set /p "UserKeep=> "
+echo.
+
+echo  [QUESTION 3]: Describe your ISSUES.
+echo  (e.g. "My pc freezes when i alt tab", "boot is slow")
+echo  Type below:
+set /p "UserIssues=> "
+
+cls
+color 0A
+echo.
+echo  ================================================================================
+echo   INITIATING DEEP SYSTEM SCAN...
+echo  ================================================================================
+echo.
+
+:: --- 6. DATA PACKET GENERATION (DIRECT WRITE) ---
+
+echo [1/6] Establishing Neural Connection...
+echo ============================================================================== > "%OutputFile%"
+echo [AI INSTRUCTION START] >> "%OutputFile%"
+echo. >> "%OutputFile%"
+echo I am the user. I have ran the "DragonScale Scanner". >> "%OutputFile%"
+echo Below is my system data and my personal notes. >> "%OutputFile%"
+echo. >> "%OutputFile%"
+echo --- USER INPUT (NATURAL LANGUAGE) --- >> "%OutputFile%"
+echo MY GOALS: "!UserGoal!" >> "%OutputFile%"
+echo MUST KEEP: "!UserKeep!" >> "%OutputFile%"
+echo MY ISSUES: "!UserIssues!" >> "%OutputFile%"
+echo. >> "%OutputFile%"
+echo --- TASK FOR AI --- >> "%OutputFile%"
+echo 1. Analyze the user's natural language input above ^(auto-correct typos^). >> "%OutputFile%"
+echo 2. Analyze the hardware and running processes below. >> "%OutputFile%"
+echo 3. Create a custom .bat script to optimize this specific machine. >> "%OutputFile%"
+echo ============================================================================== >> "%OutputFile%"
+echo [BEGIN SYSTEM DATA SCAN] >> "%OutputFile%"
+echo ============================================================================== >> "%OutputFile%"
+
+echo [2/6] Scanning Hardware...
+echo. >> "%OutputFile%"
+echo --- HARDWARE --- >> "%OutputFile%"
+powershell -NoProfile -Command "Get-CimInstance Win32_Processor | Select-Object Name, NumberOfCores, MaxClockSpeed | Format-List" >> "%OutputFile%"
+powershell -NoProfile -Command "Get-CimInstance Win32_VideoController | Select-Object Name, AdapterRAM, DriverVersion | Format-List" >> "%OutputFile%"
+powershell -NoProfile -Command "Get-CimInstance Win32_ComputerSystem | Select-Object TotalPhysicalMemory | Format-List" >> "%OutputFile%"
+
+echo [3/6] Scanning Startup Apps...
+echo. >> "%OutputFile%"
+echo --- STARTUP APPS (Registry) --- >> "%OutputFile%"
+reg query "HKCU\Software\Microsoft\Windows\CurrentVersion\Run" /s >> "%OutputFile%" 2>&1
+reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Run" /s >> "%OutputFile%" 2>&1
+
+echo [4/6] Capturing Processes...
+echo. >> "%OutputFile%"
+echo --- RUNNING PROCESSES --- >> "%OutputFile%"
+tasklist /v >> "%OutputFile%"
+
+echo [5/6] Capturing Services...
+echo. >> "%OutputFile%"
+echo --- ACTIVE SERVICES --- >> "%OutputFile%"
+sc query type= service state= all | findstr /C:"SERVICE_NAME" /C:"DISPLAY_NAME" /C:"STATE" >> "%OutputFile%"
+
+echo [6/6] Finalizing Packet...
+echo. >> "%OutputFile%"
+echo ============================================================================== >> "%OutputFile%"
+echo [END OF PACKET] >> "%OutputFile%"
+echo ============================================================================== >> "%OutputFile%"
+
+cls
+color 0B
+echo.
+echo  ================================================================================
+echo   SCAN COMPLETE - SUCCESS
+echo  ================================================================================
+echo.
+echo   A file named "DragonScale_Data_Packet.txt" has been SAVED to your Desktop.
+echo.
+echo   [INSTRUCTIONS]:
+echo   1. Open "DragonScale_Data_Packet.txt" on your Desktop.
+echo   2. Copy EVERYTHING inside.
+echo   3. Go to GOOGLE AI STUDIO (or similar AI).
+echo   4. Paste the data directly into the chat.
+echo   5. The AI will build your custom optimization script.
+echo.
+echo  ================================================================================
+echo   FOLLOW THE CREATOR:
+echo   YouTube: LucidJay
+echo   TikTok:  @LucidJay
+echo  ================================================================================
+echo.
+echo   THANKS FOR USING DRAGONSCALE.
+echo.
+pause
